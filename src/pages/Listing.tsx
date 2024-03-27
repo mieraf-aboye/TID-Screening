@@ -64,9 +64,9 @@ export default function Listing() {
   };
 
   const handleSubmit = () => {
-    if(!listing.reason){console.log("yes")
+    if(!listing.reason){
       setInputError("Please provide reason for extention.");
-    } else {console.log("no")
+    } else {
       setInputError("");
     }
   }

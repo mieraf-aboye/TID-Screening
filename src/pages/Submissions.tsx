@@ -29,6 +29,7 @@ export default function Submissions() {
           <Table>
             <TableHead>
               <TableRow>
+               <TableCell>Submitted At</TableCell>
                 <TableCell>Name</TableCell>
                 <TableCell>Address</TableCell>
                 <TableCell>City</TableCell>
@@ -40,10 +41,23 @@ export default function Submissions() {
 
             <TableBody>
               {submissions.map((submission) => {
-                const { listing } = submission;
-
+                const { listing, createdAt } = submission;
+                let date;
+                if(createdAt){
+                  const dateDateFormat = new Date(createdAt);
+                   date = new Intl.DateTimeFormat('en-US', {
+                    month: 'numeric',
+                    day: 'numeric',
+                    year: 'numeric',
+                    hour: 'numeric',
+                    minute: 'numeric',
+                    second: 'numeric',
+                    hour12: true
+                  }).format(dateDateFormat);
+                }
                 return (
                   <TableRow key={submission.id}>
+                    <TableCell>{date}</TableCell>
                     <TableCell>{listing.name}</TableCell>
                     <TableCell>{listing.physicalAddress.address1}</TableCell>
                     <TableCell>{listing.physicalAddress.city}</TableCell>
