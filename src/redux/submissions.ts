@@ -33,6 +33,7 @@ const submissionsSlice = createSlice({
   initialState,
   reducers: {
     addSubmission: (state, action: PayloadAction<Submission>) => {
+      state.submissions.push(action.payload);
     },
   },
 });

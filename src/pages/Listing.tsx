@@ -1,12 +1,14 @@
 import React, { ComponentProps, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Formik, Form, useField } from "formik";
 import { Box, Button, Container, Grid, Paper, TextField, Typography } from "@mui/material";
+import { v4 as uuidv4 } from 'uuid';
 
-import { selectClaimedListingById, updateClaimedListingReason } from "../redux/listings";
+import { selectClaimedListingById, unclaimListing, updateClaimedListingReason } from "../redux/listings";
 import { useAppSelector } from "../lib/useAppSelector";
 import { Submission } from "../lib/applicationTypes";
 import { useDispatch } from "react-redux";
+import { addSubmission } from "../redux/submissions";
 
 type AppFieldProps = {
   label: string;
@@ -51,6 +53,7 @@ export default function Listing() {
   const { id = null } = useParams();
   const listing = useAppSelector((state) => selectClaimedListingById(state, id))
   const [inputRequiredError, setInputError] = useState<string>("");
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   if (!listing) {
@@ -67,6 +70,17 @@ export default function Listing() {
     if(!listing.reason){
       setInputError("Please provide reason for extention.");
     } else {
+      if(id){
+          const newSubmission = {
+          id: uuidv4(),
+          createdAt: new Date().toISOString(),
+          reason: listing.reason,
+          listing,
+        };
+        dispatch(unclaimListing(id));
+        dispatch(addSubmission(newSubmission));
+        navigate(`/submissions`);
+      }
       setInputError("");
     }
   }

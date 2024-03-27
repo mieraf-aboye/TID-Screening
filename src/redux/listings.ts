@@ -44,13 +44,17 @@ const listingsSlice = createSlice({
         state.claimed[listingIndex].reason = reason;
       }
     },
+    unclaimListing: (state, action: PayloadAction<string>) => {
+      state.claimed = state.claimed.filter((listing) => listing.id !== action.payload);
+    }
   },
 });
 
 export const {
   initOpenListings,
   claimListing,
-  updateClaimedListingReason
+  updateClaimedListingReason,
+  unclaimListing
 } = listingsSlice.actions;
 
 // Selectors
