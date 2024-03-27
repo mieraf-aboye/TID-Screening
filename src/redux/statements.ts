@@ -1,6 +1,6 @@
 // slices/statementsSlice.ts
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { loadStatements } from '../lib/api';
+import { createStatement, loadStatements } from '../lib/api';
 import { RootState } from '.';
 
 export type Statement = {
@@ -39,8 +39,16 @@ const statementsSlice = createSlice({
       })
       .addCase(fetchStatements.rejected, (state) => {
         state.loading = false;
+      })
+      .addCase(addStatement.fulfilled, (state, action) => {
+        state.statements.push(action.payload);
       });
   },
+});
+
+export const addStatement = createAsyncThunk('statements/addStatement', async (newStatement: Statement) => {
+  const response = await createStatement(newStatement);
+  return response;
 });
 
 export const selectStatements = (state: RootState) => state.statements.statements;
