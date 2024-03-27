@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import listingsData from "../data/listings.json";
 import statementData from "../data/statements.json";
-import { Listing, Submission } from "./applicationTypes";
+import { Listing, Statement, Submission } from "./applicationTypes";
 
 /*\
 |* !!IMPORTANT!!
@@ -42,11 +42,11 @@ let statementsApiState = statementData;
 
 export const loadStatements = () => {
   return Promise.resolve(
-    statementsApiState as APIResponse<unknown>,
+    statementsApiState as APIResponse<Statement>,
   );
 };
 
-export const updateStatement = (updatedStatement: unknown) => {
+export const updateStatement = (updatedStatement: Statement) => {
   if (typeof updatedStatement !== "object" || !updatedStatement) {
     return Promise.reject("Invalid statement received");
   }

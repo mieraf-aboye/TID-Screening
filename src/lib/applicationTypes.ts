@@ -30,3 +30,14 @@ export type Submission = {
   createdAt?: string;
   reason?: string;
 }
+
+export type Statement = {
+  id: string;
+  name: string;
+  contactInformation: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phoneNumber: string;
+  };
+};
