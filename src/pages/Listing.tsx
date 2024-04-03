@@ -185,7 +185,7 @@ export default function Listing() {
             {inputRequiredError !=null && setInputError.length > 0 && <div style={{ color: 'red' }}>{inputRequiredError}</div>}
 
             <Box sx={{ mt: 3 }}>
-              <Button variant="contained" type="submit">
+              <Button variant="contained" type="submit" onClick={handleSubmit}>
                 Submit Request
               </Button>
             </Box>

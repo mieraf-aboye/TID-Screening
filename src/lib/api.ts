@@ -40,7 +40,7 @@ export const requestExtension = (submission: Submission) => {
 // Mock statements API.
 let statementsApiState = statementData;
 
-export const loadStatements = () => {
+export const loadStatements = () : Promise<APIResponse<Statement>> => {
   return Promise.resolve(
     statementsApiState as APIResponse<Statement>,
   );
